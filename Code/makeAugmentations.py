@@ -93,30 +93,33 @@ def AugmentPatch(image):
     for i in range(0, num_aug):
         im = np.copy(image)
 
-        if i % 2:
-            im = ChangeHue(im, addHue[i])
+        #if i % 2:
+        #im = ChangeHue(im, 0.3)
             
-        if i % 5 > 1 :
-            im = transform1(im)
+        #if i % 5 > 1 :
+        #im = transform1(im)
             
-        if i % 3 :
-            im = transform2(im)
+        #if i % 3 :
+        #im = transform2(im)
         
         im = matplotlib.colors.rgb_to_hsv(1.0*im/255)
-        im = Contrast(im, powerElements[i], multiplyElements[i], addingElements[i])
+        im = ChangeHue(im, 0.5)
+        #im = Contrast(im, powerElements[i], multiplyElements[i], addingElements[i])
 
-        seq = imgaug.augmenters.Affine(scale = multiply[i], translate_px = translateList[i], rotate = rotation[i])
-        im = seq.augment_image(im)
+        #seq = imgaug.augmenters.Affine(scale = 1.4, translate_px = 0, rotate = 0)
+        #seq = imgaug.augmenters.Affine(scale = multiply[i], translate_px = translateList[i], rotate = rotation[i])
+        #im = seq.augment_image(im)
                 
         im = matplotlib.colors.hsv_to_rgb(im)
         
         # take patch of interest
         translate_px = translateList[i]
-        im = im[15+translate_px:15+translate_px + height, 15+translate_px :15+translate_px + width, :]
+        #im = im[24+translate_px:24+translate_px + height, 24+translate_px :24+translate_px + width, :]
+        im = im[24:24 + height, 24:24+width, :]
         image_list.append(im)
      
-    seq = imgaug.augmenters.Fliplr(fliplrProbability)
-    image_list = seq.augment_images(image_list)
+    #seq = imgaug.augmenters.Fliplr(fliplrProbability)
+    #image_list = seq.augment_images(image_list)
     
     return image_list
 
@@ -124,14 +127,16 @@ def AugmentPatch(image):
 ####################################################################################################
 
 # set working directory
-os.chdir(images_dir)
+images_dirr = '/home/fpalajs/Mozgalo_save/temp/'
+aug_dirr = '/home/fpalajs/Mozgalo_save/color/'
+os.chdir(images_dirr)
 
 # don't overwrite existing augmentations
-if os.path.exists(aug_dir):
-    print('Directory ' + aug_dir + ' already exists!\n')
+if os.path.exists(aug_dirr):
+    print('Directory ' + aug_dirr + ' already exists!\n')
     sys.exit()
 
-os.mkdir(aug_dir)
+os.mkdir(aug_dirr)
 
 # load dataset
 image_list = []
@@ -149,5 +154,5 @@ for i in range(0, num_surr):
     print(i)
     aug = AugmentPatch(augSet[i])
     for j in range(0, num_aug):
-        path = aug_dir + str(i*num_aug+j) + '.jpg'
+        path = aug_dirr + str(i*num_aug+j) + '.jpg'
         misc.imsave(path, aug[j])  

@@ -1,5 +1,5 @@
 # directory
-main_dir    = '/path/to/main/directory' # you need to change this
+main_dir    = '/home/fpalajs/Mozgalo_save'
 aug_dir     = main_dir + '/Augmented/'
 cnn_dir     = main_dir + '/CNN/'
 code_dir    = main_dir + '/Code/'
@@ -36,12 +36,12 @@ features_file   = results_current + '/features.txt'
 results_file    = results_current + '/results.csv'
 
 # training
-train_steps     = 5000
+train_steps     = 1000
 learning_rate   = 0.0001
-batch_size_     = 250       # 500
+batch_size_     = 100       # 500
 
 # k-means
-num_clusters    = 20
+num_clusters    = 13
 
 # visualization
 visual_file     = train_dir + '/label_74' 

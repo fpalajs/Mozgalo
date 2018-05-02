@@ -50,7 +50,7 @@ threads = tf.train.start_queue_runners(sess=sess,coord=coord)
 
 for step in range(train_steps):
     batch_xs, batch_ys = sess.run([imageBatch, labelBatch])
-    
+    print(step)
     sess.run(train_step, feed_dict={x: batch_xs, y_: batch_ys, keep_prob: 0.5})
     
     if (step+1)%20 == 0:

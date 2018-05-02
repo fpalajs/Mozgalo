@@ -6,16 +6,18 @@ import matplotlib.pyplot as plt
 from variables import *
 
 # change number of images in row and column
-examples_height = 4
-examples_width  = 6
+examples_height = 5
+examples_width  = 5
 
-os.chdir(visual_file)
+visual_fil = '/home/fpalajs/Mozgalo_save/Results/Small/100/a/'
+os.chdir(visual_fil)
 image_list = []
 
 filename = glob.glob('*.jpg') + glob.glob('*.png') + glob.glob('*.gif') + glob.glob('*.tiff')
 
 for i in range(0, examples_height * examples_width):
-    im = misc.imread(filename[i])    
+    im = misc.imread(filename[i])
+    im = misc.imresize(im, [64, 64], 'bilinear')
     image_list.append(im)
     
 fig = plt.figure(figsize = (examples_height+1, examples_width+1))
