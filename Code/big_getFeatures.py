@@ -4,7 +4,7 @@ from scipy import misc
 import tensorflow as tf
 from big_CNN import *
 
-#reduce warnings
+# reduce warnings
 os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 
 # interactive session allows inteleaving of building and running steps
